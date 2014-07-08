@@ -5,11 +5,8 @@ nvm_packages:
   pkg.installed:
     - names:
       - git
-      - pkg-config
-      - curl
       - gcc
       - g++
-      - checkinstall
       - build-essential
       - libssl-dev
 
