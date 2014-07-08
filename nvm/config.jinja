@@ -1,0 +1,9 @@
+{% set base = {
+    'home': '/opt/nvm',
+  }
+%}
+
+{%- macro base_config(key) -%}
+  {%- set pillar_key = 'nvm:base:' ~ key -%}
+  {{ salt['pillar.get'](pillar_key, base.get(key)) }}
+{%- endmacro -%}
