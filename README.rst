@@ -10,8 +10,9 @@ Available states
 ================
 
 .. contents::
-:local:
+    :local:
 
-``nvm.init``
-------------
+``nvm``
+---------
+
 Install components for NVM
