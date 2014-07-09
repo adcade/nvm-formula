@@ -1,0 +1,14 @@
+{% set nvm = salt['grains.filter_by']({
+    'Debian': {
+        'c_p_p': 'g++',
+        'build': 'build-essential',
+        'libssl': 'libssl-dev',
+        'gcc': 'gcc'
+    },
+    'RedHat': {
+        'c_p_p': 'gcc-c++',
+        'build': 'Development Tools',
+        'libssl': 'openssl-devel',
+        'gcc': 'gcc'
+    },
+}, merge=salt['pillar.get']('beaver:lookup')) %}
