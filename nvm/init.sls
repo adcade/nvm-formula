@@ -28,3 +28,15 @@ nvm_profile:
         if [ -f "{{ install_path }}/nvm.sh" ]; then
           source {{ install_path }}/nvm.sh
         fi
+
+{{ install_path }}:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 777
+
+{{ install_path }}/nvm.sh:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 755
