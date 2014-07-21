@@ -1,29 +1,42 @@
-{% from 'nvm/config.jinja' import base_config with context %}
+{%- from 'nvm/map.jinja' import nvm with context -%}
+{%- set install_path = salt['pillar.get']('nvm:install_path', '/opt/nvm') -%}
 
-{% set home = base_config('home') %}
 nvm_packages:
   pkg.installed:
     - names:
-      - git
-      - gcc
-      - g++
-      - build-essential
-      - libssl-dev
+      - {{ nvm.gcc }}
+      - {{ nvm.c_p_p }}
+      - {{ nvm.build }}
+      - {{ nvm.libssl }}
 
 ## Get NVM
 https://github.com/creationix/nvm.git:
   git.latest:
     - rev: master
-    - target: {{ home }}
+    - target: {{ install_path }}
     - force: True
     - require:
       - pkg: nvm_packages
 
 nvm_profile:
-  file.append:
-    - name: /home/adcade_service/.profile
-    - text: |
-        if [ -f "{{ home }}/nvm.sh"] ; then
-          source {{ home }}/nvm.sh
+  file.blockreplace:
+    - name: /etc/profile
+    - marker_start: "#> Saltstack Managed Configuration START <#"
+    - marker_end: "#> Saltstack Managed Configuration END <#"
+    - append_if_not_found: true
+    - content: |
+        if [ -f "{{ install_path }}/nvm.sh" ]; then
+          source {{ install_path }}/nvm.sh
         fi
 
+{{ install_path }}:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 777
+
+{{ install_path }}/nvm.sh:
+  file.managed:
+    - user: root
+    - group: root
+    - mode: 755

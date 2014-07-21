@@ -10,8 +10,9 @@ Available states
 ================
 
 .. contents::
-:local:
+    :local:
 
-``nvm.init``
-------------
-Install components for NVM
+``nvm.source``
+---------
+
+Install The Node Version Manager from source
