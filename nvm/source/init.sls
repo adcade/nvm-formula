@@ -14,7 +14,6 @@ https://github.com/creationix/nvm.git:
   git.latest:
     - rev: master
     - target: {{ install_path }}
-    - force: True
     - require:
       - pkg: nvm_packages
 
